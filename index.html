@@ -119,6 +119,10 @@ h2[id],li[id]{scroll-margin-top:24px}
 .team-fig .eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.15)}}
 @media (prefers-reduced-motion:reduce){.team-fig .pulses{display:none}.team-fig .eye{animation:none}}
+
+.hero-img{margin:28px 0 0}
+.hero-img img{display:block;width:100%;height:auto;aspect-ratio:1344/752;border-radius:16px;background:var(--accent-soft);object-fit:cover}
+.team-fig{margin:16px 0 14px}
 </style>
 
 </head>
@@ -137,7 +141,76 @@ h2[id],li[id]{scroll-margin-top:24px}
     <p class="en">Paperclip: run your AI agents like a company, with a manager and a budget for each</p>
     <p class="lead">بأمر واحد تنزّل Paperclip على جهازك، تكتب هدف لشركتك، وتعيّن فريق من الـ agents. كل agent له مدير يرجع له، ومهام واضحة، وسقف صرف ما يتعداه. والقرارات الكبيرة ما تمشي إلا بموافقتك.</p>
 
-  <figure class="team-fig">
+
+    <figure class="hero-img">
+      <img src="img/agents-team.webp" srcset="img/agents-team-768.webp 768w, img/agents-team.webp 1344w" sizes="(max-width: 760px) 100vw, 720px" width="1344" height="752" alt="فريق من الروبوتات يشتغلون مع بعض حول طاولة: واحد يكتب كود، وواحد يصمم، وواحد يتابع إحصائيات التسويق، وقائد الفريق يشرح الخطة على شاشة فيها هيكل تنظيمي وقائمة مهام" fetchpriority="high" decoding="async">
+    </figure>
+  </section>
+
+  <nav class="toc" aria-label="محتويات الدليل">
+    <p class="toc-h">محتويات الدليل</p>
+    <ol>
+      <li><a href="#step-1">اعرف وش اللي بتنزّله</a></li>
+      <li><a href="#step-2">نزّله بأمر واحد</a></li>
+      <li><a href="#step-3">اكتب هدف الشركة</a></li>
+      <li><a href="#step-4">عيّن الفريق واختار وش يشغّل كل واحد</a></li>
+      <li><a href="#step-5">حط سقف للصرف قبل ما تشغّل أي شي</a></li>
+      <li><a href="#step-6">خل القرارات الكبيرة تنتظر موافقتك</a></li>
+      <li><a href="#step-7">قرر وين يشتغل: جهازك ولا سيرفر</a></li>
+      <li class="extra"><a href="#prompts">برومبتات جاهزة للنسخ</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="who">هالدليل لمين؟</h2>
+  <p>لك إذا صرت تشغّل أكثر من agent وتلخبطت بينهم وما تدري مين يسوي وش. ولك بعد إذا ودك تجرب فكرة "فريق agents" بدون ما تبنيه من الصفر.</p>
+
+  <h2 id="terms">كلمات لازم تعرفها</h2>
+  <dl class="terms">
+    <div><dt>Paperclip</dt><dd>برنامج مفتوح المصدر برخصة MIT، يرتّب الـ agents عندك على شكل شركة. يشتغل على جهازك ومجاني.</dd></div>
+    <div><dt>Agent</dt><dd>برنامج ذكاء اصطناعي يشتغل لحاله، مثل Claude Code أو Codex أو Gemini CLI. داخل Paperclip تعطيه وظيفة.</dd></div>
+    <div><dt>Org chart</dt><dd>الهيكل التنظيمي. كل agent له مدير واحد، والـ CEO فوق الكل.</dd></div>
+    <div><dt>Heartbeat</dt><dd>النبضة اللي تصحّي الـ agent لما توصله مهمة أو رسالة أو يجي موعد مجدول.</dd></div>
+    <div><dt>Budget</dt><dd>حد أعلى للصرف، على مستوى الشركة أو الـ agent أو المشروع. إذا وصله، الشغل يوقف لحاله.</dd></div>
+  </dl>
+
+  <h2 id="steps">الخطوات</h2>
+  <ol class="steps">
+    <li id="step-1"><div class="body">
+      <h3>اعرف وش اللي بتنزّله</h3>
+      <p>Paperclip مو agent. هو المكتب اللي الـ agents يداومون فيه: يوزع الشغل، يتابع المصاريف، ويرتب مين يرجع لمين. البرنامج نفسه ببلاش، بس الموديلات اللي تشغّل الـ agents مو ببلاش. تدفع لمزوّد الموديل، سواء بمفتاح API أو باشتراك.</p>
+      <div class="note"><b>المصدر:</b> المستودع الرسمي على GitHub، برخصة MIT.</div>
+    </div></li>
+
+    <li id="step-2"><div class="body">
+      <h3>نزّله بأمر واحد</h3>
+      <p>تحتاج Node.js نسخة <code>24.11</code> أو أحدث. تأكد من النسخة أول، وبعدها شغّل أمر التثبيت:</p>
+      <div class="term" role="img" aria-label="طرفية فيها فحص نسخة Node وأمر تثبيت Paperclip">
+        <div class="bar"><i></i><i></i><i></i><button class="copy term-copy" type="button" data-copy="npx paperclipai@latest onboard --yes" aria-label="نسخ أمر التثبيت">نسخ</button></div>
+<pre><span class="p">$</span> node -v
+<span class="c">v24.11.0</span>
+<span class="p">$</span> npx paperclipai@latest onboard --yes</pre>
+      </div>
+      <p>الأمر يسوي لك نسخة محلية فيها قاعدة بيانات Postgres مدمجة، يعني ما تحتاج تركّب شي ثاني.</p>
+      <div class="note"><b>إذا طلع لك E404:</b> غالباً عندك npm registry خاص. ضيف على الأمر <code>--registry https://registry.npmjs.org</code></div>
+    </div></li>
+
+    <li id="step-3"><div class="body">
+      <h3>اكتب هدف الشركة</h3>
+      <p>الـ CEO ياخذ الهدف ويقسمه مهام على الفريق. كل ما كان الهدف واضح وله رقم وموعد، كل ما كان التقسيم أحسن. "أبغى مشروع ناجح" ما ينفع. "أطلق صفحة هبوط وأجيب 100 تسجيل خلال 30 يوم" ينفع.</p>
+      <div class="prompt">
+        <div class="ph"><span>برومبت: صياغة الهدف</span><button class="copy" type="button">نسخ</button></div>
+<pre>ساعدني أكتب هدف شركة لفريق agents في ثلاث جمل:
+١) وش النتيجة اللي أبغاها بالضبط (برقم يُقاس)
+٢) الموعد النهائي
+٣) وش الممنوع أو خارج النطاق
+فكرتي المبدئية: [اكتب فكرتك هنا]</pre>
+      </div>
+    </div></li>
+
+    <li id="step-4"><div class="body">
+      <h3>عيّن الفريق واختار وش يشغّل كل واحد</h3>
+      <p>ابدأ بالـ CEO، وبعدها ضيف الوظايف اللي تحتاجها: مطوّر، مصمم، مسوّق. حدد لكل واحد مديره، واختار الأداة اللي تشغّله (Claude Code أو Codex أو غيرها). نصيحتي: لا تبدأ بأكثر من 3 أو 4 agents. فريق صغير تفهمه أحسن من فريق كبير يلخبطك.</p>
+      <figure class="team-fig">
   <svg viewBox="0 0 640 340" role="img" aria-labelledby="teamT teamD">
     <title id="teamT">فريق agents يشتغلون مع بعض</title>
     <desc id="teamD">الـ CEO في الأعلى يوزّع المهام على ثلاثة agents: مطوّر ومصمم ومسوّق، وكل واحد يشتغل على مهمته وعنده شريط تقدّم.</desc>
@@ -206,71 +279,6 @@ h2[id],li[id]{scroll-margin-top:24px}
   </svg>
   <figcaption>كل agent له مدير ومهمة وشريط تقدّم، والـ CEO يوزّع الشغل.</figcaption>
   </figure>
-  </section>
-
-  <nav class="toc" aria-label="محتويات الدليل">
-    <p class="toc-h">محتويات الدليل</p>
-    <ol>
-      <li><a href="#step-1">اعرف وش اللي بتنزّله</a></li>
-      <li><a href="#step-2">نزّله بأمر واحد</a></li>
-      <li><a href="#step-3">اكتب هدف الشركة</a></li>
-      <li><a href="#step-4">عيّن الفريق واختار وش يشغّل كل واحد</a></li>
-      <li><a href="#step-5">حط سقف للصرف قبل ما تشغّل أي شي</a></li>
-      <li><a href="#step-6">خل القرارات الكبيرة تنتظر موافقتك</a></li>
-      <li><a href="#step-7">قرر وين يشتغل: جهازك ولا سيرفر</a></li>
-      <li class="extra"><a href="#prompts">برومبتات جاهزة للنسخ</a></li>
-    </ol>
-  </nav>
-
-  <h2 id="who">هالدليل لمين؟</h2>
-  <p>لك إذا صرت تشغّل أكثر من agent وتلخبطت بينهم وما تدري مين يسوي وش. ولك بعد إذا ودك تجرب فكرة "فريق agents" بدون ما تبنيه من الصفر.</p>
-
-  <h2 id="terms">كلمات لازم تعرفها</h2>
-  <dl class="terms">
-    <div><dt>Paperclip</dt><dd>برنامج مفتوح المصدر برخصة MIT، يرتّب الـ agents عندك على شكل شركة. يشتغل على جهازك ومجاني.</dd></div>
-    <div><dt>Agent</dt><dd>برنامج ذكاء اصطناعي يشتغل لحاله، مثل Claude Code أو Codex أو Gemini CLI. داخل Paperclip تعطيه وظيفة.</dd></div>
-    <div><dt>Org chart</dt><dd>الهيكل التنظيمي. كل agent له مدير واحد، والـ CEO فوق الكل.</dd></div>
-    <div><dt>Heartbeat</dt><dd>النبضة اللي تصحّي الـ agent لما توصله مهمة أو رسالة أو يجي موعد مجدول.</dd></div>
-    <div><dt>Budget</dt><dd>حد أعلى للصرف، على مستوى الشركة أو الـ agent أو المشروع. إذا وصله، الشغل يوقف لحاله.</dd></div>
-  </dl>
-
-  <h2 id="steps">الخطوات</h2>
-  <ol class="steps">
-    <li id="step-1"><div class="body">
-      <h3>اعرف وش اللي بتنزّله</h3>
-      <p>Paperclip مو agent. هو المكتب اللي الـ agents يداومون فيه: يوزع الشغل، يتابع المصاريف، ويرتب مين يرجع لمين. البرنامج نفسه ببلاش، بس الموديلات اللي تشغّل الـ agents مو ببلاش. تدفع لمزوّد الموديل، سواء بمفتاح API أو باشتراك.</p>
-      <div class="note"><b>المصدر:</b> المستودع الرسمي على GitHub، برخصة MIT.</div>
-    </div></li>
-
-    <li id="step-2"><div class="body">
-      <h3>نزّله بأمر واحد</h3>
-      <p>تحتاج Node.js نسخة <code>24.11</code> أو أحدث. تأكد من النسخة أول، وبعدها شغّل أمر التثبيت:</p>
-      <div class="term" role="img" aria-label="طرفية فيها فحص نسخة Node وأمر تثبيت Paperclip">
-        <div class="bar"><i></i><i></i><i></i><button class="copy term-copy" type="button" data-copy="npx paperclipai@latest onboard --yes" aria-label="نسخ أمر التثبيت">نسخ</button></div>
-<pre><span class="p">$</span> node -v
-<span class="c">v24.11.0</span>
-<span class="p">$</span> npx paperclipai@latest onboard --yes</pre>
-      </div>
-      <p>الأمر يسوي لك نسخة محلية فيها قاعدة بيانات Postgres مدمجة، يعني ما تحتاج تركّب شي ثاني.</p>
-      <div class="note"><b>إذا طلع لك E404:</b> غالباً عندك npm registry خاص. ضيف على الأمر <code>--registry https://registry.npmjs.org</code></div>
-    </div></li>
-
-    <li id="step-3"><div class="body">
-      <h3>اكتب هدف الشركة</h3>
-      <p>الـ CEO ياخذ الهدف ويقسمه مهام على الفريق. كل ما كان الهدف واضح وله رقم وموعد، كل ما كان التقسيم أحسن. "أبغى مشروع ناجح" ما ينفع. "أطلق صفحة هبوط وأجيب 100 تسجيل خلال 30 يوم" ينفع.</p>
-      <div class="prompt">
-        <div class="ph"><span>برومبت: صياغة الهدف</span><button class="copy" type="button">نسخ</button></div>
-<pre>ساعدني أكتب هدف شركة لفريق agents في ثلاث جمل:
-١) وش النتيجة اللي أبغاها بالضبط (برقم يُقاس)
-٢) الموعد النهائي
-٣) وش الممنوع أو خارج النطاق
-فكرتي المبدئية: [اكتب فكرتك هنا]</pre>
-      </div>
-    </div></li>
-
-    <li id="step-4"><div class="body">
-      <h3>عيّن الفريق واختار وش يشغّل كل واحد</h3>
-      <p>ابدأ بالـ CEO، وبعدها ضيف الوظايف اللي تحتاجها: مطوّر، مصمم، مسوّق. حدد لكل واحد مديره، واختار الأداة اللي تشغّله (Claude Code أو Codex أو غيرها). نصيحتي: لا تبدأ بأكثر من 3 أو 4 agents. فريق صغير تفهمه أحسن من فريق كبير يلخبطك.</p>
       <div class="prompt">
         <div class="ph"><span>برومبت: وصف وظيفة (بالإنجليزي)</span><button class="copy" type="button">نسخ</button></div>
 <pre dir="ltr">Write a job description for an AI agent joining my company as [ROLE].
