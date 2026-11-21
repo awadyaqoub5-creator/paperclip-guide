@@ -110,6 +110,15 @@ h2[id],li[id]{scroll-margin-top:24px}
 .toc a{display:inline-block;min-height:40px;line-height:40px;color:var(--fg);text-decoration:none;transition:color .2s ease}
 .toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.team-fig{margin:28px 0 0;padding:16px 12px 12px;border:1px solid var(--line);border-radius:16px;background:var(--bg)}
+.team-fig svg{display:block;width:100%;height:auto;max-width:100%}
+.team-fig .lbl{font:700 17px var(--f-display);fill:var(--fg)}
+.team-fig .sub{font:400 13px var(--f-body);fill:var(--muted)}
+.team-fig figcaption{text-align:center;font-size:14px;color:var(--muted);margin-top:8px}
+.team-fig .eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.15)}}
+@media (prefers-reduced-motion:reduce){.team-fig .pulses{display:none}.team-fig .eye{animation:none}}
 </style>
 
 </head>
@@ -127,6 +136,76 @@ h2[id],li[id]{scroll-margin-top:24px}
     <h1>Paperclip: شغّل فريق agents كأنك صاحب شركة، كل واحد له مدير وميزانية</h1>
     <p class="en">Paperclip: run your AI agents like a company, with a manager and a budget for each</p>
     <p class="lead">بأمر واحد تنزّل Paperclip على جهازك، تكتب هدف لشركتك، وتعيّن فريق من الـ agents. كل agent له مدير يرجع له، ومهام واضحة، وسقف صرف ما يتعداه. والقرارات الكبيرة ما تمشي إلا بموافقتك.</p>
+
+  <figure class="team-fig">
+  <svg viewBox="0 0 640 340" role="img" aria-labelledby="teamT teamD">
+    <title id="teamT">فريق agents يشتغلون مع بعض</title>
+    <desc id="teamD">الـ CEO في الأعلى يوزّع المهام على ثلاثة agents: مطوّر ومصمم ومسوّق، وكل واحد يشتغل على مهمته وعنده شريط تقدّم.</desc>
+    <g fill="none" stroke="var(--line)" stroke-width="2">
+      <path id="l1" d="M320 120 V155 H535 V190"/>
+      <path id="l2" d="M320 120 V190"/>
+      <path id="l3" d="M320 120 V155 H105 V190"/>
+    </g>
+    <g class="pulses">
+      <circle r="4.5" fill="var(--accent)"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#l1"/></animateMotion></circle>
+      <circle r="4.5" fill="var(--accent)"><animateMotion dur="2.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#l2"/></animateMotion></circle>
+      <circle r="4.5" fill="var(--accent)"><animateMotion dur="2.6s" begin="1.6s" repeatCount="indefinite"><mpath href="#l3"/></animateMotion></circle>
+    </g>
+    <rect x="225" y="14" width="190" height="106" rx="14" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+    <g transform="translate(320,58)">
+      <line x1="0" y1="-30" x2="0" y2="-22" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="-33" r="4" fill="var(--accent)"/>
+      <rect x="-22" y="-22" width="44" height="34" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+      <circle cx="-8" cy="-6" r="4" fill="var(--accent)" class="eye"/><circle cx="8" cy="-6" r="4" fill="var(--accent)" class="eye"/>
+      <rect x="-8" y="3" width="16" height="3" rx="1.5" fill="var(--accent)"/>
+    </g>
+    <text x="320" y="96" text-anchor="middle" class="lbl">CEO</text>
+    <text x="320" y="112" text-anchor="middle" class="sub">يقسّم الهدف ويوزّع المهام</text>
+    <g>
+    <rect x="450" y="190" width="170" height="124" rx="14" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+    <g transform="translate(535.0,236)">
+      <line x1="0" y1="-30" x2="0" y2="-22" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="-33" r="4" fill="var(--accent)"/>
+      <rect x="-22" y="-22" width="44" height="34" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+      <circle cx="-8" cy="-6" r="4" fill="var(--accent)" class="eye"/><circle cx="8" cy="-6" r="4" fill="var(--accent)" class="eye"/>
+      <rect x="-8" y="3" width="16" height="3" rx="1.5" fill="var(--accent)"/>
+    </g>
+    <text x="535.0" y="272" text-anchor="middle" class="lbl">المطوّر</text>
+    <text x="535.0" y="291" text-anchor="middle" class="sub">يبني صفحة الهبوط</text>
+    <rect x="470" y="300" width="130" height="5" rx="2.5" fill="var(--line)"/>
+    <rect x="509.0" y="300" width="91.0" height="5" rx="2.5" fill="var(--accent)"/>
+  </g>
+    <g>
+    <rect x="235" y="190" width="170" height="124" rx="14" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+    <g transform="translate(320.0,236)">
+      <line x1="0" y1="-30" x2="0" y2="-22" stroke="var(--warn)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="-33" r="4" fill="var(--warn)"/>
+      <rect x="-22" y="-22" width="44" height="34" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="3"/>
+      <circle cx="-8" cy="-6" r="4" fill="var(--warn)" class="eye"/><circle cx="8" cy="-6" r="4" fill="var(--warn)" class="eye"/>
+      <rect x="-8" y="3" width="16" height="3" rx="1.5" fill="var(--warn)"/>
+    </g>
+    <text x="320.0" y="272" text-anchor="middle" class="lbl">المصمم</text>
+    <text x="320.0" y="291" text-anchor="middle" class="sub">يجهّز الهوية</text>
+    <rect x="255" y="300" width="130" height="5" rx="2.5" fill="var(--line)"/>
+    <rect x="326.5" y="300" width="58.5" height="5" rx="2.5" fill="var(--warn)"/>
+  </g>
+    <g>
+    <rect x="20" y="190" width="170" height="124" rx="14" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+    <g transform="translate(105.0,236)">
+      <line x1="0" y1="-30" x2="0" y2="-22" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="-33" r="4" fill="var(--accent)"/>
+      <rect x="-22" y="-22" width="44" height="34" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+      <circle cx="-8" cy="-6" r="4" fill="var(--accent)" class="eye"/><circle cx="8" cy="-6" r="4" fill="var(--accent)" class="eye"/>
+      <rect x="-8" y="3" width="16" height="3" rx="1.5" fill="var(--accent)"/>
+    </g>
+    <text x="105.0" y="272" text-anchor="middle" class="lbl">المسوّق</text>
+    <text x="105.0" y="291" text-anchor="middle" class="sub">يكتب الإعلانات</text>
+    <rect x="40" y="300" width="130" height="5" rx="2.5" fill="var(--line)"/>
+    <rect x="59.5" y="300" width="110.5" height="5" rx="2.5" fill="var(--accent)"/>
+  </g>
+  </svg>
+  <figcaption>كل agent له مدير ومهمة وشريط تقدّم، والـ CEO يوزّع الشغل.</figcaption>
+  </figure>
   </section>
 
   <nav class="toc" aria-label="محتويات الدليل">
