@@ -79,7 +79,12 @@ ol.steps .body{min-width:0;padding-top:4px}
 .prompt .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px 8px 8px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
 .prompt pre{margin:0;padding:14px 16px;white-space:pre-wrap;word-break:break-word;font-family:var(--f-body);font-size:15.5px;line-height:1.8}
 .prompt pre[dir="ltr"]{font-family:var(--f-mono);font-size:14px;text-align:left}
-button.copy{font:500 13px var(--f-body);color:var(--accent);background:var(--accent-soft);border:0;border-radius:6px;padding:5px 12px;cursor:pointer}
+button.copy{font:500 14px var(--f-body);color:var(--accent);background:var(--accent-soft);border:0;border-radius:8px;min-height:44px;min-width:64px;padding:0 16px;cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .15s ease}
+button.copy:active{transform:scale(.97)}
+button.copy.ok{background:var(--accent);color:var(--surface)}
+.term .bar{align-items:center}
+.term .bar .term-copy{margin-left:auto;min-height:36px;background:#ffffff14;color:var(--term-fg)}
+.term .bar .term-copy.ok{background:#4FC3BF;color:#071014}
 button.copy:hover{filter:brightness(.96)}
 
 .summary{margin-top:52px;padding:26px 24px;border-radius:14px;background:var(--accent-soft)}
@@ -89,10 +94,28 @@ button.copy:hover{filter:brightness(.96)}
 footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer strong{color:var(--fg);font-family:var(--f-display)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+html{scroll-behavior:smooth}
+h2[id],li[id]{scroll-margin-top:24px}
+.progress{position:fixed;inset:0 0 auto;height:calc(3px + env(safe-area-inset-top,0px));z-index:20;pointer-events:none}
+.progress span{display:block;height:3px;margin-top:env(safe-area-inset-top,0px);width:0;background:var(--accent);margin-right:0;transition:width .1s linear}
+.skip{position:absolute;right:16px;top:-60px;background:var(--accent);color:var(--surface);padding:10px 16px;border-radius:8px;z-index:30;text-decoration:none}
+.skip:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.toc{margin-top:28px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px}
+.toc-h{font-family:var(--f-display);font-weight:500;font-size:15px;color:var(--muted);margin:0 0 6px}
+.toc ol{margin:0;padding:0 22px 0 0;display:grid;gap:2px}
+.toc li::marker{color:var(--accent);font-weight:700}
+.toc li.extra{list-style:none;margin-top:6px;margin-right:-22px;padding-top:8px;border-top:1px solid var(--line)}
+.toc a{display:inline-block;min-height:40px;line-height:40px;color:var(--fg);text-decoration:none;transition:color .2s ease}
+.toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 
 </head>
 <body>
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<a class="skip" href="#steps">انتقل للخطوات</a>
 <div class="wrap" dir="rtl" lang="ar">
   <header class="top">
     <a class="brand" href="#">يعقوب الظفيري<small>أدلة عملية في الذكاء الاصطناعي</small></a>
@@ -106,10 +129,24 @@ footer strong{color:var(--fg);font-family:var(--f-display)}
     <p class="lead">بأمر واحد تنزّل Paperclip على جهازك، تكتب هدف لشركتك، وتعيّن فريق من الـ agents. كل agent له مدير يرجع له، ومهام واضحة، وسقف صرف ما يتعداه. والقرارات الكبيرة ما تمشي إلا بموافقتك.</p>
   </section>
 
-  <h2>هالدليل لمين؟</h2>
+  <nav class="toc" aria-label="محتويات الدليل">
+    <p class="toc-h">محتويات الدليل</p>
+    <ol>
+      <li><a href="#step-1">اعرف وش اللي بتنزّله</a></li>
+      <li><a href="#step-2">نزّله بأمر واحد</a></li>
+      <li><a href="#step-3">اكتب هدف الشركة</a></li>
+      <li><a href="#step-4">عيّن الفريق واختار وش يشغّل كل واحد</a></li>
+      <li><a href="#step-5">حط سقف للصرف قبل ما تشغّل أي شي</a></li>
+      <li><a href="#step-6">خل القرارات الكبيرة تنتظر موافقتك</a></li>
+      <li><a href="#step-7">قرر وين يشتغل: جهازك ولا سيرفر</a></li>
+      <li class="extra"><a href="#prompts">برومبتات جاهزة للنسخ</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="who">هالدليل لمين؟</h2>
   <p>لك إذا صرت تشغّل أكثر من agent وتلخبطت بينهم وما تدري مين يسوي وش. ولك بعد إذا ودك تجرب فكرة "فريق agents" بدون ما تبنيه من الصفر.</p>
 
-  <h2>كلمات لازم تعرفها</h2>
+  <h2 id="terms">كلمات لازم تعرفها</h2>
   <dl class="terms">
     <div><dt>Paperclip</dt><dd>برنامج مفتوح المصدر برخصة MIT، يرتّب الـ agents عندك على شكل شركة. يشتغل على جهازك ومجاني.</dd></div>
     <div><dt>Agent</dt><dd>برنامج ذكاء اصطناعي يشتغل لحاله، مثل Claude Code أو Codex أو Gemini CLI. داخل Paperclip تعطيه وظيفة.</dd></div>
@@ -118,19 +155,19 @@ footer strong{color:var(--fg);font-family:var(--f-display)}
     <div><dt>Budget</dt><dd>حد أعلى للصرف، على مستوى الشركة أو الـ agent أو المشروع. إذا وصله، الشغل يوقف لحاله.</dd></div>
   </dl>
 
-  <h2>الخطوات</h2>
+  <h2 id="steps">الخطوات</h2>
   <ol class="steps">
-    <li><div class="body">
+    <li id="step-1"><div class="body">
       <h3>اعرف وش اللي بتنزّله</h3>
       <p>Paperclip مو agent. هو المكتب اللي الـ agents يداومون فيه: يوزع الشغل، يتابع المصاريف، ويرتب مين يرجع لمين. البرنامج نفسه ببلاش، بس الموديلات اللي تشغّل الـ agents مو ببلاش. تدفع لمزوّد الموديل، سواء بمفتاح API أو باشتراك.</p>
       <div class="note"><b>المصدر:</b> المستودع الرسمي على GitHub، برخصة MIT.</div>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-2"><div class="body">
       <h3>نزّله بأمر واحد</h3>
       <p>تحتاج Node.js نسخة <code>24.11</code> أو أحدث. تأكد من النسخة أول، وبعدها شغّل أمر التثبيت:</p>
       <div class="term" role="img" aria-label="طرفية فيها فحص نسخة Node وأمر تثبيت Paperclip">
-        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="bar"><i></i><i></i><i></i><button class="copy term-copy" type="button" data-copy="npx paperclipai@latest onboard --yes" aria-label="نسخ أمر التثبيت">نسخ</button></div>
 <pre><span class="p">$</span> node -v
 <span class="c">v24.11.0</span>
 <span class="p">$</span> npx paperclipai@latest onboard --yes</pre>
@@ -139,7 +176,7 @@ footer strong{color:var(--fg);font-family:var(--f-display)}
       <div class="note"><b>إذا طلع لك E404:</b> غالباً عندك npm registry خاص. ضيف على الأمر <code>--registry https://registry.npmjs.org</code></div>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-3"><div class="body">
       <h3>اكتب هدف الشركة</h3>
       <p>الـ CEO ياخذ الهدف ويقسمه مهام على الفريق. كل ما كان الهدف واضح وله رقم وموعد، كل ما كان التقسيم أحسن. "أبغى مشروع ناجح" ما ينفع. "أطلق صفحة هبوط وأجيب 100 تسجيل خلال 30 يوم" ينفع.</p>
       <div class="prompt">
@@ -152,7 +189,7 @@ footer strong{color:var(--fg);font-family:var(--f-display)}
       </div>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-4"><div class="body">
       <h3>عيّن الفريق واختار وش يشغّل كل واحد</h3>
       <p>ابدأ بالـ CEO، وبعدها ضيف الوظايف اللي تحتاجها: مطوّر، مصمم، مسوّق. حدد لكل واحد مديره، واختار الأداة اللي تشغّله (Claude Code أو Codex أو غيرها). نصيحتي: لا تبدأ بأكثر من 3 أو 4 agents. فريق صغير تفهمه أحسن من فريق كبير يلخبطك.</p>
       <div class="prompt">
@@ -164,18 +201,18 @@ Keep it under 150 words.</pre>
       </div>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-5"><div class="body">
       <h3>حط سقف للصرف قبل ما تشغّل أي شي</h3>
       <p>هذي أهم خطوة بالدليل كله. حط ميزانية للشركة وميزانية لكل agent، وفعّل التنبيه قبل ما يوصل السقف. لما الصرف يوصل الحد، الشغل يوقف لحاله.</p>
       <div class="note warn"><b>انتبه:</b> الإيقاف يعتمد على الصرف المسجّل، فممكن مهمة شغالة تكمّل شوي بعد السقف. ابدأ بميزانية صغيرة وتابع صفحة التكاليف كل يوم في الأسبوع الأول.</div>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-6"><div class="body">
       <h3>خل القرارات الكبيرة تنتظر موافقتك</h3>
       <p>قبل ما يتوظف agent جديد أو تتغير الاستراتيجية، Paperclip يوقف ويطلب موافقتك. خصص وقت مرة أو مرتين باليوم تراجع فيه الطلبات: توافق، ترفض، أو توقف agent إذا شفته ماشي غلط.</p>
     </div></li>
 
-    <li><div class="body">
+    <li id="step-7"><div class="body">
       <h3>قرر وين يشتغل: جهازك ولا سيرفر</h3>
       <p>على جهازك، الفريق يشتغل بس وجهازك شغّال. إذا تبغاه يشتغل 24 ساعة، حطه على سيرفر أو جهاز ما يطفي، تقدر تستخدم Docker للنشر، وتدخل عليه من برا عن طريق شبكة خاصة مثل Tailscale.</p>
       <div class="note warn"><b>مهم:</b> لا تفتح لوحة التحكم على الإنترنت بدون تسجيل دخول.</div>
@@ -188,7 +225,7 @@ Keep it under 150 words.</pre>
     </div></li>
   </ol>
 
-  <h2>برومبتات جاهزة للنسخ</h2>
+  <h2 id="prompts">برومبتات جاهزة للنسخ</h2>
   <div class="prompt">
     <div class="ph"><span>مراجعة أسبوعية للفريق</span><button class="copy" type="button">نسخ</button></div>
 <pre>راجع شغل الفريق هالأسبوع وطلّع لي:
@@ -214,16 +251,25 @@ Keep it under 150 words.</pre>
   </footer>
 </div>
 
+<p id="live" class="sr" aria-live="polite"></p>
 <script>
-document.querySelectorAll('button.copy').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var pre=btn.closest('.prompt').querySelector('pre');
-    var text=pre.innerText;
-    function done(){btn.textContent='تم النسخ';setTimeout(function(){btn.textContent='نسخ'},1600)}
-    function fallback(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='انسخ المحدد'}
-    try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+(function(){
+  var live=document.getElementById('live');
+  document.querySelectorAll('button.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var box=btn.closest('.prompt');
+      var pre=box?box.querySelector('pre'):null;
+      var text=btn.dataset.copy||(pre?pre.innerText:'');
+      function done(){btn.textContent='تم النسخ';btn.classList.add('ok');live.textContent='تم النسخ';
+        setTimeout(function(){btn.textContent='نسخ';btn.classList.remove('ok');live.textContent=''},1800)}
+      function fallback(){if(!pre)return;var r=document.createRange();r.selectNodeContents(pre);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);btn.textContent='انسخ المحدد';live.textContent='النص محدد، انسخه يدوياً'}
+      try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+    });
   });
-});
+  var bar=document.getElementById('bar'),tick=false;
+  function upd(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';tick=false}
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+})();
 </script>
 
 </body>
