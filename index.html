@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دليل Paperclip | يعقوب الظفيري</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Readex+Pro:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column, steps as a vertical rail of numbered blocks (order matters), terminal + prompt boxes as the only "objects" */
+:root{
+  --bg:#F5F7F8; --surface:#FFFFFF; --fg:#16212B; --muted:#5A6874; --line:#DCE3E8;
+  --accent:#0F7C7A; --accent-soft:#E0F1F0; --warn:#9A5B00; --warn-soft:#FBF0DD;
+  --term-bg:#101820; --term-fg:#D7E3EA; --term-dim:#7F93A3;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E151B; --surface:#151F27; --fg:#E6EDF2; --muted:#9AAAB6; --line:#26333D;
+  --accent:#4FC3BF; --accent-soft:#16302F; --warn:#F0B35A; --warn-soft:#2E2414;
+  --term-bg:#070C10; --term-fg:#D7E3EA; --term-dim:#71879A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E151B; --surface:#151F27; --fg:#E6EDF2; --muted:#9AAAB6; --line:#26333D;
+  --accent:#4FC3BF; --accent-soft:#16302F; --warn:#F0B35A; --warn-soft:#2E2414;
+  --term-bg:#070C10; --term-fg:#D7E3EA; --term-dim:#71879A; color-scheme:dark}
+
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.85;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:720px;margin:0 auto;padding-block:28px 64px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding-bottom:18px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--f-display);font-weight:700;font-size:20px;color:var(--fg);text-decoration:none}
+.brand small{display:block;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.tag{font-size:13px;color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:999px;letter-spacing:.02em}
+
+.hero{padding-block:36px 8px}
+.meta{font-size:14px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,5.4vw,42px);line-height:1.35;margin:12px 0 8px;text-wrap:balance}
+.en{direction:ltr;text-align:right;font-family:var(--f-body);color:var(--muted);font-size:15px;margin:0 0 18px}
+.lead{font-size:19px;margin:0}
+
+h2{font-family:var(--f-display);font-weight:700;font-size:25px;margin:52px 0 14px;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0 0 6px;text-wrap:balance}
+p{margin:0 0 14px}
+code,.mono{font-family:var(--f-mono);font-size:.88em;direction:ltr;unicode-bidi:isolate}
+p code,li code{background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+
+dl.terms{display:grid;gap:0;margin:0;border-top:1px solid var(--line)}
+dl.terms div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+dl.terms dt{font-family:var(--f-mono);font-weight:600;font-size:15px;direction:ltr;text-align:right;color:var(--accent)}
+dl.terms dd{margin:0;min-width:0}
+@media (max-width:520px){dl.terms div{grid-template-columns:1fr;gap:2px}}
+
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:34px}
+ol.steps>li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:16px;position:relative}
+ol.steps>li::before{content:counter(s);font-family:var(--f-display);font-weight:700;font-size:18px;
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--accent);color:var(--accent);background:var(--bg);z-index:1}
+ol.steps>li:not(:last-child)::after{content:"";position:absolute;right:20px;top:44px;bottom:-34px;width:2px;background:var(--line)}
+ol.steps .body{min-width:0;padding-top:4px}
+
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;overflow:hidden;margin:14px 0;direction:ltr;text-align:left}
+.term .bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid #ffffff14}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:#ffffff2a}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.7}
+.term .c{color:var(--term-dim)}
+.term .p{color:#4FC3BF}
+
+.note{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15.5px;background:var(--surface)}
+.note b{color:var(--accent)}
+.note.warn{background:var(--warn-soft);border-color:transparent}
+.note.warn b{color:var(--warn)}
+
+.prompt{border:1px solid var(--line);background:var(--surface);border-radius:10px;margin:14px 0;overflow:hidden}
+.prompt .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px 8px 8px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.prompt pre{margin:0;padding:14px 16px;white-space:pre-wrap;word-break:break-word;font-family:var(--f-body);font-size:15.5px;line-height:1.8}
+.prompt pre[dir="ltr"]{font-family:var(--f-mono);font-size:14px;text-align:left}
+button.copy{font:500 13px var(--f-body);color:var(--accent);background:var(--accent-soft);border:0;border-radius:6px;padding:5px 12px;cursor:pointer}
+button.copy:hover{filter:brightness(.96)}
+
+.summary{margin-top:52px;padding:26px 24px;border-radius:14px;background:var(--accent-soft)}
+.summary h2{margin-top:0}
+.summary p{font-size:19px;margin:0}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer strong{color:var(--fg);font-family:var(--f-display)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="top">
+    <a class="brand" href="#">يعقوب الظفيري<small>أدلة عملية في الذكاء الاصطناعي</small></a>
+    <span class="tag">دليل · Guide</span>
+  </header>
+
+  <section class="hero">
+    <div class="meta"><span>21 نوفمبر 2026</span><span>قراءة 8 دقائق</span></div>
+    <h1>Paperclip: شغّل فريق agents كأنك صاحب شركة، كل واحد له مدير وميزانية</h1>
+    <p class="en">Paperclip: run your AI agents like a company, with a manager and a budget for each</p>
+    <p class="lead">بأمر واحد تنزّل Paperclip على جهازك، تكتب هدف لشركتك، وتعيّن فريق من الـ agents. كل agent له مدير يرجع له، ومهام واضحة، وسقف صرف ما يتعداه. والقرارات الكبيرة ما تمشي إلا بموافقتك.</p>
+  </section>
+
+  <h2>هالدليل لمين؟</h2>
+  <p>لك إذا صرت تشغّل أكثر من agent وتلخبطت بينهم وما تدري مين يسوي وش. ولك بعد إذا ودك تجرب فكرة "فريق agents" بدون ما تبنيه من الصفر.</p>
+
+  <h2>كلمات لازم تعرفها</h2>
+  <dl class="terms">
+    <div><dt>Paperclip</dt><dd>برنامج مفتوح المصدر برخصة MIT، يرتّب الـ agents عندك على شكل شركة. يشتغل على جهازك ومجاني.</dd></div>
+    <div><dt>Agent</dt><dd>برنامج ذكاء اصطناعي يشتغل لحاله، مثل Claude Code أو Codex أو Gemini CLI. داخل Paperclip تعطيه وظيفة.</dd></div>
+    <div><dt>Org chart</dt><dd>الهيكل التنظيمي. كل agent له مدير واحد، والـ CEO فوق الكل.</dd></div>
+    <div><dt>Heartbeat</dt><dd>النبضة اللي تصحّي الـ agent لما توصله مهمة أو رسالة أو يجي موعد مجدول.</dd></div>
+    <div><dt>Budget</dt><dd>حد أعلى للصرف، على مستوى الشركة أو الـ agent أو المشروع. إذا وصله، الشغل يوقف لحاله.</dd></div>
+  </dl>
+
+  <h2>الخطوات</h2>
+  <ol class="steps">
+    <li><div class="body">
+      <h3>اعرف وش اللي بتنزّله</h3>
+      <p>Paperclip مو agent. هو المكتب اللي الـ agents يداومون فيه: يوزع الشغل، يتابع المصاريف، ويرتب مين يرجع لمين. البرنامج نفسه ببلاش، بس الموديلات اللي تشغّل الـ agents مو ببلاش. تدفع لمزوّد الموديل، سواء بمفتاح API أو باشتراك.</p>
+      <div class="note"><b>المصدر:</b> المستودع الرسمي على GitHub، برخصة MIT.</div>
+    </div></li>
+
+    <li><div class="body">
+      <h3>نزّله بأمر واحد</h3>
+      <p>تحتاج Node.js نسخة <code>24.11</code> أو أحدث. تأكد من النسخة أول، وبعدها شغّل أمر التثبيت:</p>
+      <div class="term" role="img" aria-label="طرفية فيها فحص نسخة Node وأمر تثبيت Paperclip">
+        <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="p">$</span> node -v
+<span class="c">v24.11.0</span>
+<span class="p">$</span> npx paperclipai@latest onboard --yes</pre>
+      </div>
+      <p>الأمر يسوي لك نسخة محلية فيها قاعدة بيانات Postgres مدمجة، يعني ما تحتاج تركّب شي ثاني.</p>
+      <div class="note"><b>إذا طلع لك E404:</b> غالباً عندك npm registry خاص. ضيف على الأمر <code>--registry https://registry.npmjs.org</code></div>
+    </div></li>
+
+    <li><div class="body">
+      <h3>اكتب هدف الشركة</h3>
+      <p>الـ CEO ياخذ الهدف ويقسمه مهام على الفريق. كل ما كان الهدف واضح وله رقم وموعد، كل ما كان التقسيم أحسن. "أبغى مشروع ناجح" ما ينفع. "أطلق صفحة هبوط وأجيب 100 تسجيل خلال 30 يوم" ينفع.</p>
+      <div class="prompt">
+        <div class="ph"><span>برومبت: صياغة الهدف</span><button class="copy" type="button">نسخ</button></div>
+<pre>ساعدني أكتب هدف شركة لفريق agents في ثلاث جمل:
+١) وش النتيجة اللي أبغاها بالضبط (برقم يُقاس)
+٢) الموعد النهائي
+٣) وش الممنوع أو خارج النطاق
+فكرتي المبدئية: [اكتب فكرتك هنا]</pre>
+      </div>
+    </div></li>
+
+    <li><div class="body">
+      <h3>عيّن الفريق واختار وش يشغّل كل واحد</h3>
+      <p>ابدأ بالـ CEO، وبعدها ضيف الوظايف اللي تحتاجها: مطوّر، مصمم، مسوّق. حدد لكل واحد مديره، واختار الأداة اللي تشغّله (Claude Code أو Codex أو غيرها). نصيحتي: لا تبدأ بأكثر من 3 أو 4 agents. فريق صغير تفهمه أحسن من فريق كبير يلخبطك.</p>
+      <div class="prompt">
+        <div class="ph"><span>برومبت: وصف وظيفة (بالإنجليزي)</span><button class="copy" type="button">نسخ</button></div>
+<pre dir="ltr">Write a job description for an AI agent joining my company as [ROLE].
+Include: its main responsibilities, who it reports to, what it must
+never do without approval, and how it should report progress.
+Keep it under 150 words.</pre>
+      </div>
+    </div></li>
+
+    <li><div class="body">
+      <h3>حط سقف للصرف قبل ما تشغّل أي شي</h3>
+      <p>هذي أهم خطوة بالدليل كله. حط ميزانية للشركة وميزانية لكل agent، وفعّل التنبيه قبل ما يوصل السقف. لما الصرف يوصل الحد، الشغل يوقف لحاله.</p>
+      <div class="note warn"><b>انتبه:</b> الإيقاف يعتمد على الصرف المسجّل، فممكن مهمة شغالة تكمّل شوي بعد السقف. ابدأ بميزانية صغيرة وتابع صفحة التكاليف كل يوم في الأسبوع الأول.</div>
+    </div></li>
+
+    <li><div class="body">
+      <h3>خل القرارات الكبيرة تنتظر موافقتك</h3>
+      <p>قبل ما يتوظف agent جديد أو تتغير الاستراتيجية، Paperclip يوقف ويطلب موافقتك. خصص وقت مرة أو مرتين باليوم تراجع فيه الطلبات: توافق، ترفض، أو توقف agent إذا شفته ماشي غلط.</p>
+    </div></li>
+
+    <li><div class="body">
+      <h3>قرر وين يشتغل: جهازك ولا سيرفر</h3>
+      <p>على جهازك، الفريق يشتغل بس وجهازك شغّال. إذا تبغاه يشتغل 24 ساعة، حطه على سيرفر أو جهاز ما يطفي، تقدر تستخدم Docker للنشر، وتدخل عليه من برا عن طريق شبكة خاصة مثل Tailscale.</p>
+      <div class="note warn"><b>مهم:</b> لا تفتح لوحة التحكم على الإنترنت بدون تسجيل دخول.</div>
+      <div class="prompt">
+        <div class="ph"><span>برومبت: خطة النقل لسيرفر</span><button class="copy" type="button">نسخ</button></div>
+<pre>عندي Paperclip شغّال على جهازي وأبغى أنقله لسيرفر VPS يشتغل 24 ساعة.
+اكتب لي خطة خطوة بخطوة: تجهيز السيرفر، التثبيت بـ Docker، نقل البيانات،
+والوصول الآمن عن طريق Tailscale بدون ما أفتح أي منفذ للإنترنت.</pre>
+      </div>
+    </div></li>
+  </ol>
+
+  <h2>برومبتات جاهزة للنسخ</h2>
+  <div class="prompt">
+    <div class="ph"><span>مراجعة أسبوعية للفريق</span><button class="copy" type="button">نسخ</button></div>
+<pre>راجع شغل الفريق هالأسبوع وطلّع لي:
+- أي agent صرف أكثر من المتوقع وعلى وش
+- المهام اللي تكررت بدون نتيجة
+- اقتراح واحد يقلل الصرف الأسبوع الجاي</pre>
+  </div>
+  <div class="prompt">
+    <div class="ph"><span>تقسيم الهدف قبل الـ CEO</span><button class="copy" type="button">نسخ</button></div>
+<pre>قبل ما أعطي الهدف للـ CEO، قسّمه لي لخمس مهام رئيسية.
+لكل مهمة: مين المناسب لها من الفريق، وكم تاخذ تقريباً، ومتى نعتبرها "خلصت".
+الهدف: [الصق الهدف هنا]</pre>
+  </div>
+
+  <section class="summary">
+    <h2>الخلاصة</h2>
+    <p>Paperclip ببلاش، والموديلات لا. حط الميزانية والموافقات قبل أول تشغيل، وبعدها خل الفريق يشتغل وأنت تتابع.</p>
+  </section>
+
+  <footer>
+    <span><strong>يعقوب الظفيري</strong> · أدلة عملية في الذكاء الاصطناعي</span>
+    <span>© 2026</span>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var pre=btn.closest('.prompt').querySelector('pre');
+    var text=pre.innerText;
+    function done(){btn.textContent='تم النسخ';setTimeout(function(){btn.textContent='نسخ'},1600)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='انسخ المحدد'}
+    try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+  });
+});
+</script>
+
+</body>
+</html>
