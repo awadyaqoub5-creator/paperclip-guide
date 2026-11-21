@@ -123,6 +123,23 @@ h2[id],li[id]{scroll-margin-top:24px}
 .hero-img{margin:28px 0 0}
 .hero-img img{display:block;width:100%;height:auto;aspect-ratio:1344/752;border-radius:16px;background:var(--accent-soft);object-fit:cover}
 .team-fig{margin:16px 0 14px}
+
+.social{display:flex;flex-wrap:wrap;gap:10px}
+.soc{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:6px 14px 6px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);text-decoration:none;transition:border-color .2s,background-color .2s}
+.soc:hover{border-color:var(--accent);background:var(--accent-soft)}
+.soc svg{width:22px;height:22px;fill:currentColor;flex:0 0 auto}
+.soc.tt svg{color:var(--fg)}.soc.wa svg{color:#1FA855}.soc.ph svg{color:var(--accent)}
+.soc span{display:flex;flex-direction:column;line-height:1.3;font-weight:500;font-size:15px}
+.soc small{font-weight:400;font-size:12.5px;color:var(--muted);font-family:var(--f-mono);text-align:right}
+.author{margin-top:40px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;align-items:center;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.author img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--accent)}
+.author .ttl{font-size:13px;color:var(--muted);margin:0}
+.author h2{margin:0 0 4px;font-size:22px}
+.author p{margin:0 0 14px;font-size:15.5px}
+.author .soc{background:var(--bg)}
+.brand-wrap{display:flex;align-items:center;gap:10px}
+.brand-wrap img{width:44px;height:44px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--accent)}
+@media (max-width:560px){.author{grid-template-columns:1fr;text-align:center;justify-items:center}.author .social{justify-content:center}.author img{width:104px;height:104px}}
 </style>
 
 </head>
@@ -131,7 +148,7 @@ h2[id],li[id]{scroll-margin-top:24px}
 <a class="skip" href="#steps">انتقل للخطوات</a>
 <div class="wrap" dir="rtl" lang="ar">
   <header class="top">
-    <a class="brand" href="#">يعقوب الظفيري<small>أدلة عملية في الذكاء الاصطناعي</small></a>
+    <a class="brand brand-wrap" href="#"><img src="img/yaqoub.webp" width="44" height="44" alt=""><span>يعقوب الظفيري<small>أدلة عملية في الذكاء الاصطناعي</small></span></a>
     <span class="tag">دليل · Guide</span>
   </header>
 
@@ -330,6 +347,21 @@ Keep it under 150 words.</pre>
   <section class="summary">
     <h2>الخلاصة</h2>
     <p>Paperclip ببلاش، والموديلات لا. حط الميزانية والموافقات قبل أول تشغيل، وبعدها خل الفريق يشتغل وأنت تتابع.</p>
+  </section>
+
+
+  <section class="author" aria-labelledby="author-h">
+    <img src="img/yaqoub.webp" width="480" height="480" alt="صورة يعقوب الظفيري" loading="lazy">
+    <div>
+      <p class="ttl">كاتب الدليل</p>
+      <h2 id="author-h">يعقوب الظفيري</h2>
+      <p>أجرّب أدوات الذكاء الاصطناعي وأشرحها بالعربي. تابعني أو تواصل معي:</p>
+      <div class="social">
+        <a class="soc tt" href="https://www.tiktok.com/@yaqoubaldhafeeri1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg><span>تيك توك<small dir="ltr">@yaqoubaldhafeeri1</small></span></a>
+        <a class="soc wa" href="https://wa.me/966544956205" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>واتساب<small dir="ltr">0544956205</small></span></a>
+        <a class="soc ph" href="tel:+966544956205"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .6 3.6 1 1 0 0 1-.3 1z"/></svg><span>اتصال<small dir="ltr">0544956205</small></span></a>
+      </div>
+    </div>
   </section>
 
   <footer>
